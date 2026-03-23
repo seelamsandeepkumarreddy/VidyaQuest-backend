@@ -1,0 +1,10 @@
+CREATE TABLE `student_progress` (
+  `student_id` varchar(20) NOT NULL,
+  `xp` int(11) DEFAULT 0,
+  `lessons_completed` int(11) DEFAULT 0,
+  `quiz_accuracy` int(11) DEFAULT 0,
+  `study_time_minutes` int(11) DEFAULT 0,
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`student_id`),
+  CONSTRAINT `student_progress_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci

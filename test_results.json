@@ -1,0 +1,190 @@
+{
+  "progress_user_3": {
+    "status": 200,
+    "body": {
+      "data": {
+        "average_accuracy": 0,
+        "completed_chapters": {},
+        "earned_badges": {},
+        "high_accuracy_quizzes": 1,
+        "perfect_quizzes": 0,
+        "quiz_count": 0,
+        "total_study_time": 0,
+        "total_xp": 80,
+        "weekly_xp": 0
+      },
+      "status": "success"
+    }
+  },
+  "progress_user_20": {
+    "status": 200,
+    "body": {
+      "data": {
+        "average_accuracy": 33,
+        "completed_chapters": {
+          "8-Mathematics": [
+            "Linear Equations in One Variable",
+            "Practical Geometry"
+          ],
+          "8-Science": [
+            "Crop Production & Management"
+          ]
+        },
+        "earned_badges": {},
+        "high_accuracy_quizzes": 0,
+        "perfect_quizzes": 0,
+        "quiz_count": 3,
+        "total_study_time": 0,
+        "total_xp": 100,
+        "weekly_xp": 0
+      },
+      "status": "success"
+    }
+  },
+  "students_grade_8": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "grade": "8",
+          "id": 3,
+          "name": "Sandeep",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 12,
+          "name": "sandeep",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 13,
+          "name": "sand",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 16,
+          "name": "sandeep",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 18,
+          "name": "madhav",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 19,
+          "name": "pavan",
+          "role": "student"
+        },
+        {
+          "grade": "8",
+          "id": 20,
+          "name": "babu",
+          "role": "student"
+        }
+      ],
+      "status": "success"
+    }
+  },
+  "admin_users": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "details": "Staff",
+          "email": "teacher@gmail.com",
+          "id": "21",
+          "name": "mam",
+          "role": "",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "babu@gmail.com",
+          "id": "20",
+          "name": "babu",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "pavan@gmail.com",
+          "id": "19",
+          "name": "pavan",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "madhav@gmail.com",
+          "id": "18",
+          "name": "madhav",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Grade 9",
+          "email": "test_q6fv00nw@example.com",
+          "id": "17",
+          "name": "Test User",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "admin@gmail.com",
+          "id": "16",
+          "name": "sandeep",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Staff",
+          "email": "mam@gmail.com",
+          "id": "14",
+          "name": "sjk",
+          "role": "Faculty",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "sa@gmail.com",
+          "id": "13",
+          "name": "sand",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "sad@gmail.com",
+          "id": "12",
+          "name": "sandeep",
+          "role": "Student",
+          "status": "active"
+        },
+        {
+          "details": "Staff",
+          "email": "samy@gmail.com",
+          "id": "10",
+          "name": "samy",
+          "role": "Faculty",
+          "status": "active"
+        },
+        {
+          "details": "Grade 8",
+          "email": "san@gmail.com",
+          "id": "3",
+          "name": "Sandeep",
+          "role": "Student",
+          "status": "active"
+        }
+      ],
+      "status": "success"
+    }
+  }
+}

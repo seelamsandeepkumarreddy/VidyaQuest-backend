@@ -1,0 +1,7 @@
+﻿Testing /upload-lesson...
+Status Code: 201
+Response: {'grade': '8', 'status': 'success', 'subject': '1', 'title': 'Test Chapter'}
+
+Testing /upload-quiz...
+Status Code: 201
+Response: {'grade': '8', 'status': 'success', 'subject': '1', 'title': 'Test Quiz'}

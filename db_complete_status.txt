@@ -1,0 +1,50 @@
+=== TABLES ===
+{'Tables_in_ruralquest_db': 'announcements'}
+{'Tables_in_ruralquest_db': 'attendance'}
+{'Tables_in_ruralquest_db': 'chapters'}
+{'Tables_in_ruralquest_db': 'questions'}
+{'Tables_in_ruralquest_db': 'quiz_progress'}
+{'Tables_in_ruralquest_db': 'student_progress'}
+{'Tables_in_ruralquest_db': 'students'}
+{'Tables_in_ruralquest_db': 'subjects'}
+{'Tables_in_ruralquest_db': 'users'}
+
+=== USERS SCHEMA ===
+{'Field': 'id', 'Type': 'int(11)', 'Null': 'NO', 'Key': 'PRI', 'Default': None, 'Extra': 'auto_increment'}
+{'Field': 'full_name', 'Type': 'varchar(100)', 'Null': 'NO', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'email', 'Type': 'varchar(150)', 'Null': 'NO', 'Key': 'UNI', 'Default': None, 'Extra': ''}
+{'Field': 'phone', 'Type': 'varchar(15)', 'Null': 'YES', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'password_hash', 'Type': 'varchar(255)', 'Null': 'NO', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'role', 'Type': "enum('student','faculty','admin')", 'Null': 'YES', 'Key': '', 'Default': 'student', 'Extra': ''}
+{'Field': 'created_at', 'Type': 'timestamp', 'Null': 'NO', 'Key': '', 'Default': 'current_timestamp()', 'Extra': ''}
+{'Field': 'school_name', 'Type': 'varchar(200)', 'Null': 'YES', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'grade', 'Type': 'varchar(10)', 'Null': 'YES', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'subject_expertise', 'Type': 'varchar(100)', 'Null': 'YES', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'experience', 'Type': 'varchar(50)', 'Null': 'YES', 'Key': '', 'Default': None, 'Extra': ''}
+{'Field': 'total_xp', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'perfect_quizzes', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'high_accuracy_quizzes', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'total_study_time', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+
+=== STUDENT PROGRESS SCHEMA ===
+{'Field': 'student_id', 'Type': 'int(11)', 'Null': 'NO', 'Key': 'PRI', 'Default': None, 'Extra': ''}
+{'Field': 'xp', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'lessons_completed', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'quiz_accuracy', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'study_time_minutes', 'Type': 'int(11)', 'Null': 'YES', 'Key': '', 'Default': '0', 'Extra': ''}
+{'Field': 'last_updated', 'Type': 'timestamp', 'Null': 'NO', 'Key': '', 'Default': 'current_timestamp()', 'Extra': 'on update current_timestamp()'}
+
+=== ALL USERS DATA ===
+{'id': 3, 'full_name': 'Sandeep', 'role': 'student', 'grade': None}
+{'id': 10, 'full_name': 'samy', 'role': 'faculty', 'grade': ''}
+{'id': 12, 'full_name': 'sandeep', 'role': 'student', 'grade': '8'}
+{'id': 13, 'full_name': 'sand', 'role': 'student', 'grade': '8'}
+{'id': 14, 'full_name': 'sjk', 'role': 'faculty', 'grade': ''}
+{'id': 16, 'full_name': 'sandeep', 'role': 'student', 'grade': None}
+{'id': 17, 'full_name': 'Test User', 'role': 'student', 'grade': '9'}
+{'id': 18, 'full_name': 'madhav', 'role': 'student', 'grade': None}
+{'id': 19, 'full_name': 'pavan', 'role': 'student', 'grade': None}
+{'id': 20, 'full_name': 'babu', 'role': 'student', 'grade': None}
+
+=== STUDENT PROGRESS DATA ===
+{'student_id': 3, 'xp': 150, 'lessons_completed': 2, 'quiz_accuracy': 85, 'study_time_minutes': 45, 'last_updated': datetime.datetime(2026, 3, 7, 10, 15, 31)}

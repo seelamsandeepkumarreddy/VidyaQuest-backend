@@ -1,0 +1,21 @@
+DEBUG: Creating challenge for author_id=10, grade=8, title=Test Challenge
+DEBUG: Questions JSON: [{"id": 0, "text": "What is 1+1?", "options": ["1", "2", "3", "4"], "correct_option_index": 1, "review_text": "Math"}]
+DEBUG: create_challenge result: False
+DEBUG: Exception in DailyChallengeModel.create_challenge: (1146, "Table 'ruralquest_db.daily_challenges' doesn't exist")
+Traceback (most recent call last):
+  File "C:\Users\sande\AndroidStudioProjects\ruralquest_backend\models.py", line 488, in create_challenge
+    cur.execute(query, (author_id, grade, title, description, questions_json, expires_at))
+  File "C:\Users\sande\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sande\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\sande\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\MySQLdb\connections.py", line 286, in query
+    _mysql.connection.query(self, query)
+MySQLdb.ProgrammingError: (1146, "Table 'ruralquest_db.daily_challenges' doesn't exist")
+DEBUG: Creating challenge for author_id=10, grade=8, title=Test Challenge
+DEBUG: Questions JSON: [{"id": 0, "text": "What is 1+1?", "options": ["1", "2", "3", "4"], "correct_option_index": 1, "review_text": "Math"}]
+DEBUG: create_challenge result: False
+DEBUG: Creating challenge for author_id=10, grade=8, title=Test Challenge
+DEBUG: Questions JSON: [{"id": 0, "text": "What is 1+1?", "options": ["1", "2", "3", "4"], "correct_option_index": 1, "review_text": "Math"}]
+DEBUG: create_challenge result: True

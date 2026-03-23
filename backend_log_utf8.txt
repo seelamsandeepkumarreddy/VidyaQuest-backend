@@ -1,0 +1,100 @@
+﻿DEBUG: Request to /api/admin/content/recent [GET]
+DEBUG: Request to /api/admin/analytics/detailed [GET]
+Error calculating analytics: 0
+DEBUG: Request to /api/admin/attendance/summary [GET]
+DEBUG: Request to /api/admin/notifications [GET]
+DEBUG: Request to /api/announcements/9 [GET]
+DEBUG: Request to /api/announcements/9 [GET]
+DEBUG: Request to /api/login [POST]
+DEBUG: Request to /api/students/9 [GET]
+DEBUG: Request to /api/progress/VQT-2026004 [GET]
+DEBUG: Request to /api/announcements/9 [GET]
+DEBUG: Request to /api/announcements/9 [GET]
+DEBUG: Request to /api/students/9 [GET]
+127.0.0.1 - - [11/Mar/2026 
+14:34:28] "GET /api/admin/users 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:28] "GET 
+/api/admin/content/recent 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:28] "GET 
+/api/admin/analytics/detailed 
+HTTP/1.1" 500 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:28] "GET 
+/api/admin/attendance/summary 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:28] "GET 
+/api/admin/notifications HTTP/1.1" 
+200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:31] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET /api/admin/stats 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET /api/admin/users 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET 
+/api/admin/content/recent 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET 
+/api/admin/analytics/detailed 
+HTTP/1.1" 500 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET 
+/api/admin/attendance/summary 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:33] "GET 
+/api/admin/notifications HTTP/1.1" 
+200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:47] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:47] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET /api/admin/stats 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET /api/admin/users 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET 
+/api/admin/content/recent 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET 
+/api/admin/analytics/detailed 
+HTTP/1.1" 500 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET 
+/api/admin/attendance/summary 
+HTTP/1.1" 200 -
+127.0.0.1 - - [11/Mar/2026 
+14:34:56] "GET 
+/api/admin/notifications HTTP/1.1" 
+200 -
+127.0.0.1 - - [11/Mar/2026 
+14:35:02] "GET /api/announcements/8
+?role=admin&user_id=ADMIN-001 
+HTTP/1.1" 200 -
