@@ -1,0 +1,210 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so may be deleted later.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytestdebug.log
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in cases where the author of a library or repository maintains
+#   a specific Python version, or a dependencies list for development,
+#   it can be ignored.
+#Pipfile.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm plugins project configuration
+.pdm-python
+#   pdm local configuration
+.pdm-build
+
+# PEP 582; used by e.g. github.com/frenetic-beings/veneer
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate file (JetBrains.gitignore)
+#  and can be added to the global gitignore or merged into this one.  For now:
+.idea/
+
+# VS Code
+.vscode/
+
+# Project specific ignores
+uploads/
+backend_log.txt
+backend_log_utf8.txt
+backend_output.log
+server_log.txt
+server_log_utf8.txt
+server_logs.txt
+server_logs_latest_utf8.txt
+server_logs_tail_utf8.txt
+server_logs_v2.txt
+server_logs_v3.txt
+audit_pdfs.py
+final_audit.py
+test_results.json
+test_results.txt
+test_results_utf8.txt
+diagnostic_result.json
+check_output.txt
+fks_output.txt
+fks_output_utf8.txt
+model_list.txt
+model_list_v2.txt
+models.txt
+models_structure.txt
+questions_full.txt
+questions_report.txt
+routes.txt
+routes_list.txt
+routes_list_utf8.txt
+schema_check.log
+schema_output.txt
+schema_output_utf8.txt
+student_progress_schema.txt
+student_progress_schema_utf8.txt
+students_schema.txt
+students_schema_utf8.txt
+otp_debug_log.txt
+create_challenge_debug.log
+db_complete_status.txt
+db_complete_status_v4.txt
+db_status.txt
+db_status_v2.txt
+db_status_v3.txt
+dump_out.txt
+final_pdf_results.txt
+hindi_telugu_fix_results.txt
+pdf_fix_results.txt
+pdf_generate_results.txt
+asset_pdfs.txt
+query
