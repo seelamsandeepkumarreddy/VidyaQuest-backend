@@ -408,8 +408,22 @@ def change_password():
     if not check_password_hash(stored_hash, old_password):
         return jsonify({"status": "error", "message": "Current password is incorrect"}), 401
 
-    if len(new_password) < 6:
-        return jsonify({"status": "error", "message": "New password must be at least 6 characters"}), 400
+    # Strict password validation
+    if len(new_password) < 8:
+        return jsonify({"status": "error", "message": "Password must be at least 8 characters long"}), 400
+    
+    if not any(c.isupper() for c in new_password):
+        return jsonify({"status": "error", "message": "Password must contain at least one uppercase letter"}), 400
+    
+    if not any(c.islower() for c in new_password):
+        return jsonify({"status": "error", "message": "Password must contain at least one lowercase letter"}), 400
+    
+    if not any(c.isdigit() for c in new_password):
+        return jsonify({"status": "error", "message": "Password must contain at least one number"}), 400
+    
+    import string
+    if not any(c in string.punctuation for c in new_password):
+        return jsonify({"status": "error", "message": "Password must contain at least one special character"}), 400
 
     # Update password and clear must_change_password flag
     new_hash = generate_password_hash(new_password)

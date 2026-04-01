@@ -114,7 +114,7 @@ def create_app():
 
     # --- PROGRESS & STUDY ROUTES (Handling both /api and non-api just in case) ---
     # Import the new models
-    from models import AttendanceModel, AnnouncementModel, ProgressModel, QuizProgressModel, UserModel, AssignmentModel, DailyChallengeModel
+    from models import AttendanceModel, AnnouncementModel, ProgressModel, QuizProgressModel, UserModel, AssignmentModel, DailyChallengeModel, SpeechProgressModel
     attendance_model = AttendanceModel(mysql)
     announcements_model = AnnouncementModel(mysql)
     progress_model = ProgressModel(mysql)
@@ -122,6 +122,50 @@ def create_app():
     user_model = UserModel(mysql)
     assignment_model = AssignmentModel(mysql)
     challenge_model = DailyChallengeModel(mysql)
+    speech_model = SpeechProgressModel(mysql)
+
+    # --- SPEECH TRAINING ROUTES ---
+    @app.route('/api/speech/save', methods=['POST'])
+    def save_speech_progress():
+        try:
+            data = request.json
+            user_id = data.get('user_id')
+            category = data.get('category')
+            accuracy = data.get('accuracy')
+            words_count = data.get('words_count')
+            
+            if not all([user_id, category, accuracy is not None, words_count is not None]):
+                return jsonify({"status": "error", "message": "Missing required fields"}), 400
+                
+            success = speech_model.save_speech_session(user_id, category, accuracy, words_count)
+            if success:
+                return jsonify({"status": "success", "message": "Speech session saved"}), 200
+            return jsonify({"status": "error", "message": "Failed to save session"}), 500
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+
+    @app.route('/api/speech/stats/<string:user_id>', methods=['GET'])
+    def get_speech_stats(user_id):
+        try:
+            stats = speech_model.get_speech_stats(user_id)
+            formatted_stats = []
+            for s in stats:
+                if isinstance(s, dict):
+                    formatted_stats.append({
+                        "category": s['category'],
+                        "avg_accuracy": int(s['avg_accuracy']),
+                        "total_words": int(s['total_words'])
+                    })
+                else:
+                    # MySQL tuple: (category, avg_accuracy, total_words)
+                    formatted_stats.append({
+                        "category": s[0],
+                        "avg_accuracy": int(s[1]),
+                        "total_words": int(s[2])
+                    })
+            return jsonify({"status": "success", "data": formatted_stats}), 200
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
 
     # --- PROGRESS ROUTES ---
     @app.route('/api/progress/<string:user_id>', methods=['GET'])
@@ -157,27 +201,29 @@ def create_app():
                             "total_study_time": progress_old[3] or 0
                         }
                     
-                    # Merge if new table had some metadata (like grade) but old has the XP
-                    if progress and old_data["total_xp"] > 0:
-                        progress.update(old_data)
-                        progress["quiz_count"] = old_data["lessons_completed"]
+                    if progress:
+                        # We have the new model format, just patch in the old XP if it's there
+                        if old_data["total_xp"] > 0:
+                            progress.update(old_data)
+                            progress["quiz_count"] = old_data["lessons_completed"]
                         return jsonify({"status": "success", "data": progress}), 200
-
-                    # Standardize to full ProgressData model if only old data exists
-                    return jsonify({
-                        "status": "success",
-                        "data": {
-                            "total_xp": old_data["total_xp"],
-                            "perfect_quizzes": 0,
-                            "high_accuracy_quizzes": 0,
-                            "average_accuracy": old_data["average_accuracy"],
-                            "quiz_count": old_data["lessons_completed"],
-                            "total_study_time": old_data["total_study_time"],
-                            "weekly_xp": 0,
-                            "completed_chapters": {},
-                            "earned_badges": {}
-                        }
-                    }), 200
+                    else:
+                        # Standardize to full ProgressData model if only old data exists
+                        return jsonify({
+                            "status": "success",
+                            "data": {
+                                "total_xp": old_data["total_xp"],
+                                "streak": 0,
+                                "perfect_quizzes": 0,
+                                "high_accuracy_quizzes": 0,
+                                "average_accuracy": old_data["average_accuracy"],
+                                "quiz_count": old_data["lessons_completed"],
+                                "total_study_time": old_data["total_study_time"],
+                                "weekly_xp": 0,
+                                "completed_chapters": {},
+                                "earned_badges": {}
+                            }
+                        }), 200
             
             if progress:
                 return jsonify({
@@ -452,7 +498,8 @@ def create_app():
                     "message": f"Subject: {subject} - {desc or ''}",
                     "type": "Assignment",
                     "timestamp": int(created_at.timestamp() * 1000) if created_at else 0,
-                    "target_grade": grade
+                    "target_grade": grade,
+                    "target_role": "student"
                 })
 
             # 3. Add "New Challenge" notification if one exists for today
@@ -471,7 +518,8 @@ def create_app():
                     "message": ch_title,
                     "type": "Quiz",
                     "timestamp": 0,
-                    "target_grade": grade
+                    "target_grade": grade,
+                    "target_role": "student"
                 })
 
             # 4. Add Teacher-specific notifications
@@ -571,10 +619,14 @@ def create_app():
             return jsonify({"answer": f"Backend Error: {error_msg}"}), 200
 
 
+    @app.route('/uploads/<path:filename>')
     @app.route('/api/pdfs/<path:filename>')
     def serve_pdf(filename):
         try:
             from flask import send_from_directory
+            # If the filename already contains 'uploads/', strip it because we are serving FROM 'uploads'
+            if filename.startswith('uploads/'):
+                filename = filename[len('uploads/'):]
             return send_from_directory('uploads', filename)
         except Exception as e:
             return jsonify({"status": "error", "message": str(e)}), 404

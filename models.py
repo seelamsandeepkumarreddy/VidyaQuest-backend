@@ -768,10 +768,37 @@ class UserModel:
                 comp_count = len(completed_chapters.get(comp_key, []))
                 prog_percent = min(1.0, float(comp_count) / max(1, total_ch_count))
                 subject_mastery[subj_name] = round(prog_percent, 2)
+                
+            # 7. Calculate Streak
+            ist_today = (datetime.datetime.utcnow() + datetime.timedelta(hours=5, minutes=30)).date()
+            cur.execute("""
+                SELECT DISTINCT DATE(created_at) as d 
+                FROM quiz_progress 
+                WHERE user_id = %s 
+                ORDER BY d DESC
+            """, (user_id,))
+            date_rows = cur.fetchall()
+            
+            streak = 0
+            if date_rows:
+                active_dates = [row['d'] if isinstance(row, dict) else row[0] for row in date_rows]
+                active_dates = [d for d in active_dates if d <= ist_today]
+                
+                if active_dates:
+                    if active_dates[0] == ist_today or active_dates[0] == ist_today - datetime.timedelta(days=1):
+                        streak = 1
+                        current = active_dates[0]
+                        for d in active_dates[1:]:
+                            if d == current - datetime.timedelta(days=1):
+                                streak += 1
+                                current = d
+                            else:
+                                break
 
             cur.close()
             return {
                 "total_xp": total_xp,
+                "streak": streak,
                 "perfect_quizzes": perfect_quizzes,
                 "high_accuracy_quizzes": high_accuracy_quizzes,
                 "average_accuracy": average_accuracy,
@@ -878,6 +905,32 @@ class UserModel:
             else:
                 performance_distribution = {"High": 0, "Medium": 0, "Low": 0}
 
+            # 8. Recent Activities (Real student activity for the grade)
+            cur.execute("""
+                SELECT u.full_name, qp.subject, qp.chapter, qp.score, qp.created_at
+                FROM quiz_progress qp
+                JOIN users u ON qp.user_id = u.id
+                WHERE qp.grade = %s
+                ORDER BY qp.created_at DESC
+                LIMIT 5
+            """, (grade,))
+            activity_rows = cur.fetchall()
+            recent_activities = []
+            for row in activity_rows:
+                name = row['full_name'] if isinstance(row, dict) else row[0]
+                subject = row['subject'] if isinstance(row, dict) else row[1]
+                chapter = row['chapter'] if isinstance(row, dict) else row[2]
+                score = row['score'] if isinstance(row, dict) else row[3]
+                created_at = row['created_at'] if isinstance(row, dict) else row[4]
+                
+                time_str = created_at.strftime("%I:%M %p") if created_at else "Just now"
+                
+                recent_activities.append({
+                    "title": f"{name} completed {chapter}",
+                    "desc": f"{subject} - {score}%",
+                    "time": time_str
+                })
+
             cur.close()
             return {
                 "student_count": student_count,
@@ -886,7 +939,8 @@ class UserModel:
                 "total_study_time": total_study_time,
                 "low_performers_count": low_performers_count,
                 "subject_performance": subject_performance,
-                "performance_distribution": performance_distribution
+                "performance_distribution": performance_distribution,
+                "recent_activities": recent_activities
             }
         except Exception as e:
             print(f"Error in get_grade_analytics: {e}")
@@ -1333,3 +1387,61 @@ class DailyChallengeModel:
         except MySQLdb.Error as e:
             print(f"Error fetching daily challenge: {e}")
             return None
+
+class SpeechProgressModel:
+    def __init__(self, mysql):
+        self.mysql = mysql
+
+    def save_speech_session(self, user_id, category, accuracy, words_count):
+        try:
+            cur = self.mysql.connection.cursor()
+            # Ensure the table is created if it hasn't been yet (robustness)
+            create_query = """
+            CREATE TABLE IF NOT EXISTS speech_training_progress (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id VARCHAR(20) NOT NULL,
+                category VARCHAR(100) NOT NULL,
+                accuracy INT NOT NULL,
+                words_practiced INT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            )
+            """
+            cur.execute(create_query)
+            
+            # Save the session
+            insert_query = """
+                INSERT INTO speech_training_progress (user_id, category, accuracy, words_practiced)
+                VALUES (%s, %s, %s, %s)
+            """
+            cur.execute(insert_query, (user_id, category, accuracy, words_count))
+            self.mysql.connection.commit()
+            cur.close()
+            return True
+        except MySQLdb.Error as e:
+            print(f"Error saving speech session: {e}")
+            return False
+
+    def get_speech_stats(self, user_id):
+        try:
+            cur = self.mysql.connection.cursor()
+            # Check if table exists first
+            cur.execute("SHOW TABLES LIKE 'speech_training_progress'")
+            if not cur.fetchone():
+                cur.close()
+                return []
+            
+            # Aggregate stats per category
+            query = """
+                SELECT category, AVG(accuracy) as avg_accuracy, SUM(words_practiced) as total_words
+                FROM speech_training_progress
+                WHERE user_id = %s
+                GROUP BY category
+            """
+            cur.execute(query, (user_id,))
+            results = cur.fetchall()
+            cur.close()
+            return results
+        except MySQLdb.Error as e:
+            print(f"Error fetching speech stats: {e}")
+            return []

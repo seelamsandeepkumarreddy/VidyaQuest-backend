@@ -182,7 +182,9 @@ def upload_lesson():
         grade = request.form.get('grade')
         chapter_number = request.form.get('chapter_number')
         title = request.form.get('title')
-        lessons_count = request.form.get('lessons_count', '1')
+        lessons_count_raw = request.form.get('lessons_count', '1')
+        # Extract only digits from lessons_count (e.g., "2 lessons" -> "2")
+        lessons_count = ''.join(filter(str.isdigit, lessons_count_raw)) or '1'
         
         if 'file' not in request.files:
             return jsonify({"status": "error", "message": "No file part"}), 400

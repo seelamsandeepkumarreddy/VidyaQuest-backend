@@ -111,13 +111,11 @@ def create_user_admin():
     grade = data.get('grade')
     subject_expertise = (data.get('subject_expertise') or '').strip()
 
-    # Email Validation
-    import re
-    # More permissive regex (matches auth.py logic)
-    email_regex = re.compile(r'^[^@]+@[^@]+\.[^@]+$')
-    if not email_regex.match(email):
-        print(f"DEBUG: Rejected invalid email format: '{email}'")
-        return jsonify({"status": "error", "message": "Invalid email address format"}), 400
+    # Email Validation - Accept allowed domains
+    allowed_domains = ['@gmail.com', '@saveetha.com', '@saveetha.ac.in', '@yahoo.com', '@outlook.com']
+    if not any(email.lower().endswith(domain) for domain in allowed_domains):
+        print(f"DEBUG: Rejected non-allowed email: '{email}'")
+        return jsonify({"status": "error", "message": "Email is not valid"}), 400
 
     if not all([full_name, email]):
         return jsonify({"status": "error", "message": "Missing name or email"}), 400
@@ -131,11 +129,10 @@ def create_user_admin():
     # Password Handling - Always force change for admin-created users
     must_change = 'yes'
     if not password:
-        # Auto-generate password
+        # Auto-generate password (Generic 8-char random alphanumeric)
         import random
         import string
-        rand_chars = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
-        password = f"VQ@{rand_chars}"
+        password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
     from werkzeug.security import generate_password_hash
     pw_hash = generate_password_hash(password)
